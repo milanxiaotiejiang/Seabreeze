@@ -1,14 +1,10 @@
 package com.example.scout;
 
 import android.content.Context;
-import android.support.multidex.MultiDex;
-import android.support.multidex.MultiDexApplication;
+import androidx.multidex.MultiDex;
+import androidx.multidex.MultiDexApplication;
 
 import com.example.scout.common.lifecycle.Foreground;
-import com.robot.seabreeze.log.Log;
-import com.robot.seabreeze.log.inner.ConsoleTree;
-import com.robot.seabreeze.log.inner.FileTree;
-import com.robot.seabreeze.log.inner.LogcatTree;
 
 /**
  * Created by zhangyuanyuan on 2017/11/13.
@@ -29,9 +25,6 @@ public class ScoutApp extends MultiDexApplication {
         instance = this;
 
         Foreground.init(this);
-
-        initPrint();
-
     }
 
     @Override
@@ -40,13 +33,4 @@ public class ScoutApp extends MultiDexApplication {
         MultiDex.install(this);
     }
 
-    private void initPrint() {
-        if(BuildConfig.DEBUG){
-            Log.getLogConfig().configAllowLog(true)
-                    .configShowBorders(false);
-            Log.plant(new FileTree(this, "Log"));
-            Log.plant(new ConsoleTree());
-            Log.plant(new LogcatTree());
-        }
-    }
 }
