@@ -1,6 +1,7 @@
 package com.example.scout.activity;
 
 import android.os.Process;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -15,7 +16,6 @@ import com.example.scout.view.CircleViewByImage;
 import com.example.scout.view.TouchImageView;
 import com.example.scout.view.VideoSurfaceView;
 import com.linkcard.media.LinkVideoCore;
-import com.robot.seabreeze.log.Log;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
@@ -155,7 +155,6 @@ public class MainActivity extends BaseActivity implements TouchImageView.OnImage
                         public void onSuccess(String t) {
                             isFrontOpen = false;
                             ivFrontLighting.setBackgroundResource(R.mipmap.front_camera_close);
-                            Log.e("前灯关");
                         }
                     });
                 } else {
@@ -165,7 +164,6 @@ public class MainActivity extends BaseActivity implements TouchImageView.OnImage
                         public void onSuccess(String t) {
                             isFrontOpen = true;
                             ivFrontLighting.setBackgroundResource(R.mipmap.front_camera_open);
-                            Log.e("前灯开");
                         }
                     });
                 }
@@ -177,7 +175,6 @@ public class MainActivity extends BaseActivity implements TouchImageView.OnImage
                         public void onSuccess(String t) {
                             isAfterOpen = false;
                             ivAfterLighting.setBackgroundResource(R.mipmap.after_camera_close);
-                            Log.e("后灯关");
                         }
                     });
 
@@ -187,7 +184,6 @@ public class MainActivity extends BaseActivity implements TouchImageView.OnImage
                         public void onSuccess(String t) {
                             isAfterOpen = true;
                             ivAfterLighting.setBackgroundResource(R.mipmap.after_camera_open);
-                            Log.e("后灯开");
                         }
                     });
                 }
@@ -200,7 +196,6 @@ public class MainActivity extends BaseActivity implements TouchImageView.OnImage
                         ivAfterImage.setBackgroundResource(R.mipmap.after_camera_close);
                         ivLiftImage.setBackgroundResource(R.mipmap.lift_camera_close);
                         ivRightImage.setBackgroundResource(R.mipmap.right_camera_close);
-                        Log.e("前影像");
                     }
                 });
                 break;
@@ -212,7 +207,6 @@ public class MainActivity extends BaseActivity implements TouchImageView.OnImage
                         ivAfterImage.setBackgroundResource(R.mipmap.after_camera_open);
                         ivLiftImage.setBackgroundResource(R.mipmap.lift_camera_close);
                         ivRightImage.setBackgroundResource(R.mipmap.right_camera_close);
-                        Log.e("后影像");
                     }
                 });
                 break;
@@ -224,7 +218,6 @@ public class MainActivity extends BaseActivity implements TouchImageView.OnImage
                         ivAfterImage.setBackgroundResource(R.mipmap.after_camera_close);
                         ivLiftImage.setBackgroundResource(R.mipmap.lift_camera_open);
                         ivRightImage.setBackgroundResource(R.mipmap.right_camera_close);
-                        Log.e("左影像");
                     }
                 });
                 break;
@@ -236,7 +229,6 @@ public class MainActivity extends BaseActivity implements TouchImageView.OnImage
                         ivAfterImage.setBackgroundResource(R.mipmap.after_camera_close);
                         ivLiftImage.setBackgroundResource(R.mipmap.lift_camera_close);
                         ivRightImage.setBackgroundResource(R.mipmap.right_camera_open);
-                        Log.e("右影像");
                     }
                 });
                 break;
@@ -271,11 +263,9 @@ public class MainActivity extends BaseActivity implements TouchImageView.OnImage
         switch (view.getId()) {
             case R.id.iv_arm_up:
                 TcpSocketManager.getInstance().sendTextMessageByTcp("1", null);
-                Log.e("up");
                 break;
             case R.id.iv_arm_down:
                 TcpSocketManager.getInstance().sendTextMessageByTcp("3", null);
-                Log.e("down");
                 break;
         }
     }
@@ -286,12 +276,10 @@ public class MainActivity extends BaseActivity implements TouchImageView.OnImage
             case R.id.iv_arm_up:
                 TcpSocketManager.getInstance().sendTextMessageByTcp("0", null);
                 ivArmUp.setBackgroundResource(R.mipmap.arm_up);
-                Log.e("up finish");
                 break;
             case R.id.iv_arm_down:
                 TcpSocketManager.getInstance().sendTextMessageByTcp("0", null);
                 ivArmDown.setBackgroundResource(R.mipmap.arm_down);
-                Log.e("down finish");
                 break;
         }
     }
@@ -299,35 +287,29 @@ public class MainActivity extends BaseActivity implements TouchImageView.OnImage
     @Override
     public void forwardMove() {//上
         TcpSocketManager.getInstance().sendTextMessageByTcp("2", null);
-        Log.e("上");
     }
 
     @Override
     public void backMove() {//下
         TcpSocketManager.getInstance().sendTextMessageByTcp("8", null);
-        Log.e("下");
     }
 
     @Override
     public void leftMove() {//左
         TcpSocketManager.getInstance().sendTextMessageByTcp("4", null);
-        Log.e("左");
     }
 
     @Override
     public void rightMove() {
         TcpSocketManager.getInstance().sendTextMessageByTcp("6", null);
-        Log.e("右");//右
     }
 
     @Override
     public void actionUp() {//**
         TcpSocketManager.getInstance().sendTextMessageByTcp("5", null);
-        Log.e("离开");
     }
 
     private void sendMessage(String instructions) {
-        Log.e("");
         OkHttpUtils
                 .get()
                 .url(Constants.API.CONTROL_CMD_INSTRUCTIONS)
@@ -336,12 +318,10 @@ public class MainActivity extends BaseActivity implements TouchImageView.OnImage
                 .execute(new StringCallback() {
                     @Override
                     public void onError(Call call, Exception e, int id) {
-                        Log.e("onError");
                     }
 
                     @Override
                     public void onResponse(String response, int id) {
-                        Log.e(response);
                     }
                 });
     }
@@ -355,12 +335,10 @@ public class MainActivity extends BaseActivity implements TouchImageView.OnImage
                 .execute(new StringCallback() {
                     @Override
                     public void onError(Call call, Exception e, int id) {
-                        Log.e(call.toString());
                     }
 
                     @Override
                     public void onResponse(String response, int id) {
-                        Log.e(response);
                     }
                 });
     }
@@ -374,12 +352,10 @@ public class MainActivity extends BaseActivity implements TouchImageView.OnImage
                 .execute(new StringCallback() {
                     @Override
                     public void onError(Call call, Exception e, int id) {
-                        Log.e(call.toString());
                     }
 
                     @Override
                     public void onResponse(String response, int id) {
-                        Log.e(response);
                     }
                 });
     }

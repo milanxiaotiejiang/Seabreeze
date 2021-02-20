@@ -1,8 +1,5 @@
 package com.linkcard.media;
 
-
-import com.robot.seabreeze.log.Log;
-
 /**
  * Created by zhangyuanyuan on 2017/11/13.
  */
@@ -21,10 +18,8 @@ public class LinkVideoCore {
     public static final int SCALE_ASPECT_FIT = 0;
     private static final String TAG = "DBG";
 
-    static
-    {
+    static {
         System.loadLibrary("linkcardplayer");
-        Log.d("liblinkcardplayer.so");
     }
 
     public static native int nativeAspect(int paramInt);
